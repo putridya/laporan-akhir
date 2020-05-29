@@ -81,9 +81,11 @@ if ($jenis == 'Kajian') {
                     <td>
                         <img width="200" src="<?php echo base_url(); ?>upload/<?php echo $ft->FOTO ?>" alt="">
                     </td>
+                    <td>
+                        <?php echo anchor('foto/edit/' . $ft->ID_FOTO, '<div class="btn btn-primary btn-sm"><i class ="fa fa-edit"></i></div>') ?>
+                    </td>
                     <td style="text-align: center" onclick="return confirm('Apakah Yakin Anda ingin menghapus?')">
                         <?php echo anchor('foto/hapus/' . $ft->ID_FOTO, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
-                        <?php echo anchor('foto/edit/' . $ft->ID_FOTO, '<div class="btn btn-primary btn-sm"><i class ="fa fa-edit"></i></div>') ?>
                     </td>
 
 
@@ -151,11 +153,11 @@ if ($jenis == 'Kajian') {
                     </div>
                     <div class="form-group">
                         <label>Upload Pamflet</label>
-                        <input type="file" name="PAMFLET_ACARA" class="form-control" placeholder="Isikan Tema Acara" required>
+                        <input type="file" name="PAMFLET_ACARA" class="form-control" placeholder="upload pamfletAcara" required>
                     </div>
                     <div class="form-group">
-                        <label>Upload Video</label>
-                        <input type="file" name="VIDEO_ACARA" class="form-control" placeholder="Isikan Tema Acara" required>
+                        <label>Video Acara</label>
+                        <input type="text" name="VIDEO_ACARA" class="form-control" placeholder="upload link acara " required>
                     </div>
                     <button type="reset" class="btn btn-danger">Reset</button>
                     <button type="submit" class="btn btn-primary">Save</button>

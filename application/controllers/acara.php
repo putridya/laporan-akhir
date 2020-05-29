@@ -107,6 +107,10 @@ class Acara extends CI_Controller
         //membuat function yg digunakan dimodal
         $data['acara'] = $this->m_acara->edit_data($where, 'acara')->result(); //m_acara = nama modalnya, masukkan nma function edit_data
 
+        $data['penceramah'] = $this->m_penceramah->tampil_data()->result();
+
+        $data['bilal'] = $this->m_bilal->tampil_data()->result();
+
         $this->load->view('template/header'); //u/ngeload view dari folder template
         $this->load->view('template/sidebar');
         $this->load->view('edit_acara', $data);
@@ -119,16 +123,30 @@ class Acara extends CI_Controller
         $TEMA_ACARA = $this->input->post('TEMA_ACARA');
         $TGL_ACARA = $this->input->post('TGL_ACARA');
         $ID_PENCERAMAH = $this->input->post('ID_PENCERAMAH');
+        $ID_BILAL = $this->input->post('ID_BILAL');
+        $ID_ACARA = $this->input->post('ID_ACARA');
 
         $data = array(
             'JENIS_ACARA' =>  $JENIS_ACARA,
             'NAMA_ACARA' =>  $NAMA_ACARA,
             'TEMA_ACARA' =>  $TEMA_ACARA,
             'TGL_ACARA'  =>  $TGL_ACARA,
-            'ID_PENCERAMAH' => $ID_PENCERAMAH
+            'ID_PENCERAMAH' => $ID_PENCERAMAH,
+            'ID_BILAL' => $ID_BILAL
+
         );
+
         $where = array('ID_ACARA' => $ID_ACARA);
         $this->m_acara->update_data($where, $data, 'acara');
-        redirect('acara/index');
+
+        $method = strtolower($JENIS_ACARA);
+
+        if ($JENIS_ACARA == 'Hari Besar Islam') {
+            $method = 'haribesarislam';
+            $JENIS_ACARA = 'Hari%20Besar%20Islam';
+        }
+
+        // redirect('acara/index');
+        redirect('acara/' . $method . '/' . $JENIS_ACARA . '?jenis=' . $JENIS_ACARA);
     }
 }

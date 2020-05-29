@@ -81,11 +81,11 @@
           <li><a href="<?php echo base_url(); ?>foto/haribesarislam/Hari Besar Islam?jenis=<?php echo 'Hari Besar Islam' ?>"><i class="fa fa-circle-o"></i> Hari Besar Islam</a></li>
         </ul>
       </li>
-      <li class="">
+      <!-- <li class="">
         <a href="#">
           <i class="fa fa-lock"></i> <span>Ganti Password</span>
         </a>
-      </li>
+      </li> -->
       <li class="header">Setting Pengguna</li>
       <li class="treeview">
         <a href="<?php echo base_url(); ?>Foto">

@@ -63,7 +63,7 @@ class Foto extends CI_Controller
         // $ID_FOTO = $this->input->post('ID_FOTO');
         $FOTO = $_FILES['FOTO'];
         $PAMFLET_ACARA = $_FILES['PAMFLET_ACARA'];
-        $VIDEO_ACARA = $_FILES['VIDEO_ACARA'];
+        $VIDEO_ACARA = $this->input->post('VIDEO_ACARA');
         if ($FOTO = '' || $PAMFLET_ACARA = '' || $VIDEO_ACARA = '') {
             # code...
         } else {
@@ -71,13 +71,13 @@ class Foto extends CI_Controller
             $config['allowed_types'] = 'jpg|png|gif|jpeg|mp4|avi';
 
             $this->load->library('upload', $config);
-            if (!$this->upload->do_upload('FOTO') || !$this->upload->do_upload('PAMFLET_ACARA') || !$this->upload->do_upload('VIDEO_ACARA')) {
+            if (!$this->upload->do_upload('FOTO') || !$this->upload->do_upload('PAMFLET_ACARA')) {
                 echo "Upload Gagal";
                 die();
             } else {
                 $FOTO = $this->upload->data('file_name');
                 $PAMFLET_ACARA = $this->upload->data('file_name');
-                $VIDEO_ACARA = $this->upload->data('file_name');
+                // $VIDEO_ACARA = $this->upload->data('file_name');
             }
         }
         // $PAMFLET_ACARA = $this->input->post('PAMFLET_ACARA');

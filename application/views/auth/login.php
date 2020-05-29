@@ -19,11 +19,11 @@
                                 <?= $this->session->flashdata('message'); ?>
                                 <form class="user" method="post" action="<?= base_url('auth/aksi_login') ?>">
                                     <div class="form-group">
-                                        <input type="text" class="form-control form-control-user" id="USERNAME" name="USERNAME" placeholder="Enter USERNAME" value="<?= set_value('USERNAME'); ?>">
+                                        <input type="text" class="form-control form-control-user" id="USERNAME" name="USERNAME" placeholder="Enter Username" value="<?= set_value('USERNAME'); ?>">
                                         <?= form_error('USERNAME', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user" id="PASSWORD" name="PASSWORD" placeholder="PASSWORD">
+                                        <input type="password" class="form-control form-control-user" id="PASSWORD" name="PASSWORD" placeholder="Password">
                                         <?= form_error('PASSWORD', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
 
