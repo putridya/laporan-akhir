@@ -65,7 +65,16 @@ class M_foto extends CI_Model
     }
     public function edit_data($where, $table)
     {
-        return $this->db->get_where($table, $where);
+        $this->db->select('*'); //untuk menampilkan semua data kedua tabel
+        $this->db->from($table);
+        $this->db->join('acara', 'acara.ID_ACARA = foto.ID_ACARA'); //join untuk menggabungkan tabel
+        // $this->db->join('admin', 'admin.ID_ADMIN = acara.ID_ADMIN'); //join untuk menggabungkan tabel
+        //$this->db->join('bilal', 'bilal.ID_BILAL = acara.ID_BILAL'); //join untuk menggabungkan tabel
+        $this->db->where('ID_FOTO', $where);
+        // $this->db->join('template_pesan', 'template_pesan.ID_TEMPLATE = acara.ID_TEMPLATE'); //join untuk menggabungkan tabel
+        $query = $this->db->get();
+        return $query;
+        // return $this->db->get_where($table, $where);
     }
     public function update_data($where, $data, $table)
     {

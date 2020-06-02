@@ -122,10 +122,11 @@ class Foto extends CI_Controller
     }
     public function edit($ID_FOTO)
     {
-        $where = array('ID_FOTO' => $ID_FOTO); //id yg ada di tabel acara dijadikan array
+        // $where = array('ID_FOTO' => $ID_FOTO); //id yg ada di tabel acara dijadikan array
+        $data['acara'] = $this->m_acara->tampil_data()->result(); // m_acara : nama model acara, tampil_data = u/mengambil data
 
         //membuat function yg digunakan dimodal
-        $data['foto'] = $this->m_foto->edit_data($where, 'foto')->result(); //m_foto = nama modalnya, masukkan nma function edit_data
+        $data['foto'] = $this->m_foto->edit_data($ID_FOTO, 'foto')->result(); //m_foto = nama modalnya, masukkan nma function edit_data
 
         $this->load->view('template/header'); //u/ngeload view dari folder template
         $this->load->view('template/sidebar');
@@ -137,21 +138,82 @@ class Foto extends CI_Controller
         $ID_FOTO = $this->input->post('ID_FOTO');
         $JENIS_ACARA = $this->input->post('JENIS_ACARA');
         $NAMA_ACARA = $this->input->post('NAMA_ACARA');
-        $FOTO = $this->input->post('FOTO');
-        $PAMFLET_ACARA = $this->input->post('PAMFLET_ACARA');
+        $FOTO = $_FILES['FOTO'];
+        $PAMFLET_ACARA = $_FILES['PAMFLET_ACARA'];
         $VIDEO_ACARA = $this->input->post('VIDEO_ACARA');
 
+        if ($FOTO == '') { } else {
+            $config['upload_path'] = './upload/artikel';
+            $config['allowed_types'] = 'jpg|png|gif|jpeg';
 
-        $data = array(
-            'ID_FOTO' => $ID_FOTO,
-            'JENIS_ACARA' =>  $JENIS_ACARA,
-            'NAMA_ACARA' =>  $NAMA_ACARA,
-            'FOTO' => $FOTO,
-            'PAMFLET_ACARA' =>  $PAMFLET_ACARA,
-            'VIDEO_ACARA'  =>  $VIDEO_ACARA
-        );
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('FOTO')) {
+                $data = array(
+                    'ID_FOTO' => $ID_FOTO,
+                    'JENIS_ACARA' =>  $JENIS_ACARA,
+                    'NAMA_ACARA' =>  $NAMA_ACARA,
+                    'VIDEO_ACARA'  =>  $VIDEO_ACARA
+
+                );
+            } else {
+                $FOTO = $this->upload->data('file_name');
+                $PAMFLET_ACARA = $this->upload->data('file_name');
+                $data = array(
+                    'ID_FOTO' => $ID_FOTO,
+                    'JENIS_ACARA' =>  $JENIS_ACARA,
+                    'NAMA_ACARA' =>  $NAMA_ACARA,
+                    'FOTO' => $FOTO,
+                    // 'PAMFLET_ACARA' =>  $PAMFLET_ACARA,
+                    'VIDEO_ACARA'  =>  $VIDEO_ACARA
+                );
+            }
+        }
+        // ----------------------------------
+        if ($PAMFLET_ACARA == '') { } else {
+            $config['upload_path'] = './upload/artikel';
+            $config['allowed_types'] = 'jpg|png|gif|jpeg';
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('PAMFLET_ACARA')) {
+                $data = array(
+                    'ID_FOTO' => $ID_FOTO,
+                    'JENIS_ACARA' =>  $JENIS_ACARA,
+                    'NAMA_ACARA' =>  $NAMA_ACARA,
+                    'VIDEO_ACARA'  =>  $VIDEO_ACARA
+
+                );
+            } else {
+                $FOTO = $this->upload->data('file_name');
+                $PAMFLET_ACARA = $this->upload->data('file_name');
+                $data = array(
+                    'ID_FOTO' => $ID_FOTO,
+                    'JENIS_ACARA' =>  $JENIS_ACARA,
+                    'NAMA_ACARA' =>  $NAMA_ACARA,
+                    // 'FOTO' => $FOTO,
+                    'PAMFLET_ACARA' =>  $PAMFLET_ACARA,
+                    'VIDEO_ACARA'  =>  $VIDEO_ACARA
+                );
+            }
+        }
+        // $data = array(
+        //     'ID_FOTO' => $ID_FOTO,
+        //     'JENIS_ACARA' =>  $JENIS_ACARA,
+        //     'NAMA_ACARA' =>  $NAMA_ACARA,
+        //     'FOTO' => $FOTO,
+        //     'PAMFLET_ACARA' =>  $PAMFLET_ACARA,
+        //     'VIDEO_ACARA'  =>  $VIDEO_ACARA
+        // );
         $where = array('ID_FOTO' => $ID_FOTO);
         $this->m_foto->update_data($where, $data, 'foto');
-        redirect('foto/index');
+
+        $method = strtolower($JENIS_ACARA);
+
+        if ($JENIS_ACARA == 'Hari Besar Islam') {
+            $method = 'haribesarislam';
+            $JENIS_ACARA = 'Hari%20Besar%20Islam';
+        }
+
+        // redirect('acara/index');
+        redirect('foto/' . $method . '/' . $JENIS_ACARA . '?jenis=' . $JENIS_ACARA);
     }
 }
