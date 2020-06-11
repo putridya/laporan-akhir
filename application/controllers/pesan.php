@@ -5,6 +5,7 @@ class Pesan extends CI_Controller
     {
         parent::__construct();
 
+
         $this->load->helper(array('form', 'url'));
 
         if ($this->session->userdata('status') != "login") {
@@ -20,7 +21,7 @@ class Pesan extends CI_Controller
 
         $this->load->view('template/header', $data); //u/ngeload view dari folder template
         $this->load->view('template/sidebar');
-        $this->load->view('template_pesan', $data);
+        $this->load->view('pesan', $data);
         $this->load->view('template/footer');
     }
 

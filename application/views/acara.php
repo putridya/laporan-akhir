@@ -48,7 +48,7 @@ if ($jenis == 'Kajian') {
           <td><?php echo $acr->TGL_ACARA ?></td>
           <td><?php echo $acr->NAMA_PENCERAMAH ?></td>
           <td onclick="return confirm('Apakah Yakin Anda ingin menghapus?')">
-            <?php echo anchor('acara/hapus/' . $acr->ID_ACARA, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
+            <?php echo anchor('acara/hapus/' . $acr->ID_ACARA .'/'. $jenis_acara . '/' . $jenis, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
           </td>
 
           <td>

@@ -1,9 +1,9 @@
 <div class="content-wrapper">
     <section class="content">
         <?php foreach ($foto as $ft) {
+            echo form_open_multipart('foto/update');
             ?>
             <!-- membuat function update didlm controllers acara -->
-            <form action="<?php echo base_url() . 'foto/update'; ?>" method="post">
                 <!-- membuat inputnya -->
                 <div class="form-group">
                     <label>Jenis Acara</label>
@@ -31,9 +31,9 @@
                     <label>Belum Ada Gambar</label><br>
                 <?php } else { ?>
                     <div class="form-group">
-                        <label>Upload Pamflet</label>
-                        <img width="200" src="<?php echo base_url(); ?>upload/pamflet/<?php echo $ft->PAMFLET_ACARA ?>" alt=""> <?php } ?>
-                    <input type="file" name="FOTO" class="form-control" style="width: 50%">
+                        <label>Upload Pamflet</label><br>
+                        <img width="200" src="<?php echo base_url(); ?>upload/foto/<?php echo $ft->PAMFLET_ACARA ?>" alt=""> <?php } ?>
+                    <input type="file" name="PAMFLET_ACARA" class="form-control" >
                 </div>
 
                 <?php
@@ -41,18 +41,20 @@
                     <label>Belum Ada Gambar</label><br>
                 <?php } else { ?>
                     <div class="form-group">
-                        <label>Upload Foto</label>
-                        <img width="200" src="<?php echo base_url(); ?>upload/<?php echo $ft->FOTO ?>" alt=""> <?php } ?>
-                    <input type="file" name="FOTO" class="form-control" style="width: 50%">
+                        <label>Upload Foto</label><br>
+                        <img width="200" src="<?php echo base_url(); ?>upload/foto/<?php echo $ft->FOTO ?>" alt=""> <?php } ?>
+                    <input type="file" name="FOTO" class="form-control" >
                 </div>
 
 
                 <div class="form-group">
                     <label>Video Acara</label>
-                    <input type="text" name="VIDEO_ACARA" class="form-control" required value="<?php echo $ft->VIDEO_ACARA; ?>" </div> <button type="reset" class="btn btn-danger">Reset</button>
+                    <input type="text" name="VIDEO_ACARA" class="form-control" required value="<?php echo $ft->VIDEO_ACARA; ?>" > 
+                    <button type="reset" class="btn btn-danger">Reset</button>
                     <button type="submit" class="btn btn-primary">Save</button>
-            </form>
-        <?php } ?>
+            
+        <?php echo form_close();
+    } ?>
     </section>
 
 </div>

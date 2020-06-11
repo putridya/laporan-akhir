@@ -64,18 +64,32 @@ class Foto extends CI_Controller
         $FOTO = $_FILES['FOTO'];
         $PAMFLET_ACARA = $_FILES['PAMFLET_ACARA'];
         $VIDEO_ACARA = $this->input->post('VIDEO_ACARA');
-        if ($FOTO = '' || $PAMFLET_ACARA = '' || $VIDEO_ACARA = '') {
+        if ($FOTO = ''  ) {
             # code...
         } else {
-            $config['upload_path'] = './upload/';
-            $config['allowed_types'] = 'jpg|png|gif|jpeg|mp4|avi';
+            $config['upload_path'] = './upload/foto/';
+            $config['allowed_types'] = 'jpg|png|gif|jpeg';
 
             $this->load->library('upload', $config);
-            if (!$this->upload->do_upload('FOTO') || !$this->upload->do_upload('PAMFLET_ACARA')) {
+            if (!$this->upload->do_upload('FOTO') ) {
                 echo "Upload Gagal";
                 die();
             } else {
                 $FOTO = $this->upload->data('file_name');
+                // $VIDEO_ACARA = $this->upload->data('file_name');
+            }
+        }
+        if ( $PAMFLET_ACARA = '' ) {
+            # code...
+        } else {
+            $config['upload_path'] = './upload/foto/';
+            $config['allowed_types'] = 'jpg|png|gif|jpeg';
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('PAMFLET_ACARA')) {
+                echo "Upload Gagal";
+                die();
+            } else {
                 $PAMFLET_ACARA = $this->upload->data('file_name');
                 // $VIDEO_ACARA = $this->upload->data('file_name');
             }
@@ -113,12 +127,16 @@ class Foto extends CI_Controller
         $this->m_foto->input_data($data, 'foto');
         redirect('foto/' . $method . '/' . $param . '?jenis=' . $param);
     }
-    public function hapus($ID_FOTO)
+    public function hapus($ID_FOTO,$method,$param)
     {
         $where = array('ID_FOTO' => $ID_FOTO);
 
         $this->m_foto->hapus_data($where, 'foto');
-        redirect('foto/index');
+
+        
+
+        redirect('foto/' . $method . '/' . $param . '?jenis=' . $param);
+    
     }
     public function edit($ID_FOTO)
     {
@@ -136,6 +154,7 @@ class Foto extends CI_Controller
     public function update()
     {
         $ID_FOTO = $this->input->post('ID_FOTO');
+        $ID_ACARA = $this->input->post('ID_ACARA');
         $JENIS_ACARA = $this->input->post('JENIS_ACARA');
         $NAMA_ACARA = $this->input->post('NAMA_ACARA');
         $FOTO = $_FILES['FOTO'];
@@ -143,50 +162,47 @@ class Foto extends CI_Controller
         $VIDEO_ACARA = $this->input->post('VIDEO_ACARA');
 
         if ($FOTO == '') { } else {
-            $config['upload_path'] = './upload/artikel';
+            $config['upload_path'] = './upload/foto/';
             $config['allowed_types'] = 'jpg|png|gif|jpeg';
 
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('FOTO')) {
-                $data = array(
-                    'ID_FOTO' => $ID_FOTO,
-                    'JENIS_ACARA' =>  $JENIS_ACARA,
-                    'NAMA_ACARA' =>  $NAMA_ACARA,
-                    'VIDEO_ACARA'  =>  $VIDEO_ACARA
+                $data1 = array(
+                    'ID_ACARA' => $ID_ACARA
+                    // 'JENIS_ACARA' =>  $JENIS_ACARA,
+                    // 'NAMA_ACARA' =>  $NAMA_ACARA,
+                    // 'VIDEO_ACARA'  =>  $VIDEO_ACARA
 
                 );
             } else {
                 $FOTO = $this->upload->data('file_name');
-                $PAMFLET_ACARA = $this->upload->data('file_name');
-                $data = array(
-                    'ID_FOTO' => $ID_FOTO,
-                    'JENIS_ACARA' =>  $JENIS_ACARA,
-                    'NAMA_ACARA' =>  $NAMA_ACARA,
+                $data1 = array(
+                    
                     'FOTO' => $FOTO,
                     // 'PAMFLET_ACARA' =>  $PAMFLET_ACARA,
-                    'VIDEO_ACARA'  =>  $VIDEO_ACARA
                 );
             }
         }
+        $where1 = array('ID_FOTO' => $ID_FOTO);
+        $this->m_foto->update_data($where1, $data1, 'foto');
+
+
         // ----------------------------------
         if ($PAMFLET_ACARA == '') { } else {
-            $config['upload_path'] = './upload/artikel';
+            $config['upload_path'] = './upload/foto/';
             $config['allowed_types'] = 'jpg|png|gif|jpeg';
 
             $this->load->library('upload', $config);
             if (!$this->upload->do_upload('PAMFLET_ACARA')) {
-                $data = array(
-                    'ID_FOTO' => $ID_FOTO,
+                $data2 = array(
                     'JENIS_ACARA' =>  $JENIS_ACARA,
                     'NAMA_ACARA' =>  $NAMA_ACARA,
                     'VIDEO_ACARA'  =>  $VIDEO_ACARA
 
                 );
             } else {
-                $FOTO = $this->upload->data('file_name');
                 $PAMFLET_ACARA = $this->upload->data('file_name');
-                $data = array(
-                    'ID_FOTO' => $ID_FOTO,
+                $data2 = array(
                     'JENIS_ACARA' =>  $JENIS_ACARA,
                     'NAMA_ACARA' =>  $NAMA_ACARA,
                     // 'FOTO' => $FOTO,
@@ -195,6 +211,8 @@ class Foto extends CI_Controller
                 );
             }
         }
+        $where2 = array('ID_ACARA' => $ID_ACARA);
+        $this->m_acara->update_data($where2, $data2, 'acara');
         // $data = array(
         //     'ID_FOTO' => $ID_FOTO,
         //     'JENIS_ACARA' =>  $JENIS_ACARA,
@@ -203,8 +221,7 @@ class Foto extends CI_Controller
         //     'PAMFLET_ACARA' =>  $PAMFLET_ACARA,
         //     'VIDEO_ACARA'  =>  $VIDEO_ACARA
         // );
-        $where = array('ID_FOTO' => $ID_FOTO);
-        $this->m_foto->update_data($where, $data, 'foto');
+        
 
         $method = strtolower($JENIS_ACARA);
 

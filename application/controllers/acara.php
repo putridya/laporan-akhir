@@ -93,12 +93,12 @@ class Acara extends CI_Controller
         // redirect('acara/index');
         redirect('acara/' . $method . '/' . $param . '?jenis=' . $param);
     }
-    public function hapus($ID_ACARA)
+    public function hapus($ID_ACARA,$method,$param)
     {
         $where = array('ID_ACARA' => $ID_ACARA);
 
         $this->m_acara->hapus_data($where, 'acara');
-        redirect('acara/index');
+        redirect('acara/' . $method . '/' . $param . '?jenis=' . $param);
     }
     public function edit($ID_ACARA)
     {
