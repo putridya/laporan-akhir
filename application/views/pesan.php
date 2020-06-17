@@ -42,9 +42,6 @@
     </section>
 
     <section class="content">
-        <!-- buat button tambah data acara -->
-        <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i>
-            Tambah Pesan</button>
         <table class="table">
             <tr>
                 <th>No.</th>
@@ -53,33 +50,125 @@
                 <th>Tanggal Acara</th>
                 <th>Nama Penceramah</th>
                 <th>No Telp</th>
-                <th>Template</th>
+                <th>Isi Pesan</th>
+                <th>Status</th>
 
-                <th colspan="2" style="text-align:center">Aksi</th>
+                <!-- <th colspan="2" style="text-align:center">Aksi</th> -->
             </tr>
             <?php
             $no = 1;
-            foreach ($template_pesan as $acr) : ?>
+            foreach ($kirim as $krm) :
+                // $date = strtotime('-2 days',strtotime($krm->TGL_ACARA)); //2 hari sebelum tanggal
+                $date = strtotime($krm->TGL_ACARA);
+                $date_now = date('d M Y');
+                $date_convert = date('d M Y', $date);
+
+            ?>
 
                 <tr>
                     <td><?php echo $no++ ?></td>
-                    <td><?php echo $acr->ISI_PESAN ?></td>
-                    <td><?php echo $acr->JENIS_ACARA ?></td>
-                    <td><?php echo $acr->NAMA_ACARA ?></td>
-                    <td><?php echo $acr->NAMA_ACARA ?></td>
-                    <td><?php echo $acr->NAMA_ACARA ?></td>
-                    <td><?php echo $acr->NAMA_ACARA ?></td>
-                    <td onclick="return confirm('Apakah Yakin Anda ingin menghapus?')">
-                        <?php echo anchor('template_pesan/hapus/' . $acr->ID_TEMPLATE, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
-                    </td>
+                    <td><?php echo $krm->JENIS_ACARA ?></td>
+                    <td><?php echo $krm->NAMA_ACARA ?></td>
+                    <td><?php echo $date_convert ?></td>
+                    <td><?php echo $krm->NAMA_PENCERAMAH ?></td>
+                    <td><?php echo $krm->NO_TELP ?></td>
+                    <td><?php echo $krm->ISI_PESAN ?></td>
+                    <td><?php echo $krm->STATUS ?></td>
+                    <!-- <td onclick="return confirm('Apakah Yakin Anda ingin menghapus?')">
+                        <?php echo anchor('template_pesan/hapus/' . $krm->ID_TEMPLATE, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
+                    </td> -->
 
-                    <td>
-                        <?php echo anchor('template_pesan/edit/' . $acr->ID_TEMPLATE, '<div class="btn btn-primary btn-sm"><i class ="fa fa-edit"></i></div>') ?>
-                    </td>
+                    <!-- <td>
+                        <?php echo anchor('template_pesan/edit/' . $krm->ID_TEMPLATE, '<div class="btn btn-primary btn-sm"><i class ="fa fa-edit"></i></div>') ?>
+                    </td> -->
+
+                    <!-- <td>
+                        <?php echo anchor('pesan/kirim_pesan/' . $krm->ID_TEMPLATE, '<button type="button" id="send" name="send' . $krm->ID_TEMPLATE . '" class="btn btn-primary btn-sm"><i class ="fa fa-edit"> Kirim Pesan</i></button>') ?>
+                    </td> -->
+
                 </tr>
-            <?php endforeach ?>
+            <?php
+
+
+            endforeach ?>
+        </table>
+
+
+
+
+        <!-- buat button tambah data acara -->
+        <!-- <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i>
+            Tambah Pesan</button> -->
+        <table class="table">
+            <tr>
+                <th>No.</th>
+                <th>Jenis Acara</th>
+                <th>Nama Acara</th>
+                <th>Tanggal Acara</th>
+                <th>Nama Penceramah</th>
+                <th>No Telp</th>
+                <th>Isi Pesan</th>
+                <th>Status</th>
+
+                <!-- <th colspan="2" style="text-align:center">Aksi</th> -->
+            </tr>
+            <?php
+            $no = 1;
+            
+            foreach ($pesan as $psn) :
+                // $date = strtotime('-2 days',strtotime($psn->TGL_ACARA)); //2 hari sebelum tanggal
+                $date = strtotime($psn->TGL_ACARA);
+                $date_now = date('d M Y');
+                $date_convert = date('d M Y', $date);
+
+                // echo $date_now . "</br>";
+
+                // echo $date_convert . "</br>";
+                //     if ($date_convert == $date_now) {
+                //     // echo base_url('pesan/kirim_pesan/' . $psn->ID_TEMPLATE);
+                //     echo '<script type="text/javascript">
+
+                //     var button=document.getElementById("send");
+                //     setInterval(function(){ 
+                //         button.click();
+                //      }, 5000);
+
+                // </script>';
+                //     }
+            ?>
+
+                <tr>
+                    <td><?php echo $no++ ?></td>
+                    <td><?php echo $psn->JENIS_ACARA ?></td>
+                    <td><?php echo $psn->NAMA_ACARA ?></td>
+                    <td><?php echo $date_convert ?></td>
+                    <td><?php echo $psn->NAMA_PENCERAMAH ?></td>
+                    <td><?php echo $psn->NO_TELP ?></td>
+                    <td><?php echo $psn->ISI_PESAN ?></td>
+                    <td><?php echo $psn->STATUS ?></td>
+                    <!-- <td onclick="return confirm('Apakah Yakin Anda ingin menghapus?')">
+                        <?php echo anchor('template_pesan/hapus/' . $psn->ID_TEMPLATE, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
+                    </td> -->
+
+                    <!-- <td>
+                        <?php echo anchor('template_pesan/edit/' . $psn->ID_TEMPLATE, '<div class="btn btn-primary btn-sm"><i class ="fa fa-edit"></i></div>') ?>
+                    </td> -->
+
+                    <!-- <td>
+                        <?php echo anchor('pesan/kirim_pesan/' . $psn->ID_TEMPLATE, '<button type="button" id="send" name="send' . $psn->ID_TEMPLATE . '" class="btn btn-primary btn-sm"><i class ="fa fa-edit"> Kirim Pesan</i></button>') ?>
+                    </td> -->
+
+                </tr>
+            <?php
+
+
+            endforeach ?>
         </table>
     </section>
+
+
+
+
 
 
     <!-- Button trigger modal boostrap-->
@@ -123,7 +212,7 @@
                         <?php
                         $count_acara = 0;
                         foreach ($tampil_jenis as $j_acr) {
-                            ?>
+                        ?>
                             <div class="form-group" id="<?php echo $count_acara . '_' . 'pilihanAcara'; ?>" style="display: none;">
                                 <label>Nama Acara</label>
                                 <select class="form-control" name="NAMA_ACARA">
@@ -140,7 +229,7 @@
                                     ?>
                                 </select>
                             </div>
-                            <?php
+                        <?php
                             $count_acara++;
                         } ?>
 
@@ -160,6 +249,7 @@
         </div>
     </div>
 </div>
+
 <!-- <script type="text/javascript">
 function yesnoCheck(that) {
     if (that.value != "") {

@@ -7,7 +7,23 @@ class M_pesan extends CI_Model
 
         $this->db->select('*'); //untuk menampilkan semua data kedua tabel
         $this->db->from('acara');
-        $this->db->join('template_pesan', 'acara.ID_TEMPLATE = template_pesan.ID_TEMPLATE'); //join untuk menggabungkan tabel
+        $this->db->join('template_pesan', 'acara.ID_ACARA = template_pesan.ID_ACARA'); //join untuk menggabungkan tabel
+        $this->db->join('penceramah', 'penceramah.ID_PENCERAMAH = acara.ID_PENCERAMAH'); //join untuk menggabungkan tabel
+        // $this->db->join('admin', 'admin.ID_ADMIN = acara.ID_ADMIN'); //join untuk menggabungkan tabel
+        $query = $this->db->get();
+        return $query;
+    }
+    public function kirim()
+    {
+        // return $this->db->get('BILAL');
+        $date_now = date('Y-m-d');
+        $date_after2 = date('Y-m-d', strtotime('+2 days', strtotime($date_now))) . PHP_EOL;
+
+        $this->db->select('*'); //untuk menampilkan semua data kedua tabel
+        $this->db->from('acara');
+        $this->db->join('template_pesan', 'acara.ID_ACARA = template_pesan.ID_ACARA'); //join untuk menggabungkan tabel
+        $this->db->join('penceramah', 'penceramah.ID_PENCERAMAH = acara.ID_PENCERAMAH'); //join untuk menggabungkan tabel
+        $this->db->where('TGL_ACARA', $date_after2);
         // $this->db->join('admin', 'admin.ID_ADMIN = acara.ID_ADMIN'); //join untuk menggabungkan tabel
         $query = $this->db->get();
         return $query;

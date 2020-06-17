@@ -54,8 +54,8 @@ class Template_pesan extends CI_Controller
         $data = array(
             // 'ID_TEMPLATE' => $ID_TEMPLATE,
             'ISI_PESAN' => $ISI_PESAN,
-            'ID_ACARA' => $postdata['ID_ACARA'] //mengambil nilai dari kolom ID_ACARA
-
+            'ID_ACARA' => $postdata['ID_ACARA'], //mengambil nilai dari kolom ID_ACARA
+            'STATUS' => 'Belum Terkirim',
         );
 
         $this->m_template->input_data($data, 'template_pesan');

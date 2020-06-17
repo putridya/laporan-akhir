@@ -85,7 +85,8 @@ class Acara extends CI_Controller
             'JENIS_ACARA' =>  $JENIS_ACARA,
             'NAMA_ACARA' =>  $NAMA_ACARA,
             'TEMA_ACARA' =>  $TEMA_ACARA,
-            'TGL_ACARA'  =>  $TGL_ACARA
+            'TGL_ACARA'  =>  $TGL_ACARA,
+            'STATUS_ACARA'  =>  'Belum Dilaksanakan'
 
         );
 
