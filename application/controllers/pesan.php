@@ -1,18 +1,18 @@
 <?php
 class Pesan extends CI_Controller
 {
-    // function __construct()
-    // {
-    //     parent::__construct();
+    function __construct()
+    {
+        parent::__construct();
 
 
-    //     $this->load->helper(array('form', 'url'));
+        $this->load->helper(array('form', 'url'));
 
-    //     if ($this->session->userdata('status') != "login") {
+        if ($this->session->userdata('status') != "login") {
 
-    //         redirect(base_url("auth"));
-    //     }
-    // }
+            redirect(base_url("auth"));
+        }
+    }
     public function index()
     {
         $data['title'] = 'Penceramah';
@@ -20,8 +20,8 @@ class Pesan extends CI_Controller
         $data['pesan'] = $this->m_pesan->tampil_data()->result();
         $data['kirim'] = $this->m_pesan->kirim()->result();
 
-        
-        
+
+
 
         $this->load->view('template/header', $data); //u/ngeload view dari folder template
         $this->load->view('template/sidebar');
@@ -29,7 +29,9 @@ class Pesan extends CI_Controller
         $this->load->view('template/footer');
     }
 
-    public function kirim(){
+    public function kirim()
+    {
+        //nama variable array
         $data['kirim'] = $this->m_pesan->kirim()->result();
         foreach ($data['kirim'] as $krm) {
             $where = array(
@@ -38,44 +40,44 @@ class Pesan extends CI_Controller
             );
 
             $date = strtotime($krm->TGL_ACARA);
-        $hari = date('D', $date);
-        switch ($hari) {
-            case 'Sun':
-                $hari_ini = "Minggu";
-                break;
+            $hari = date('D', $date);
+            switch ($hari) {
+                case 'Sun':
+                    $hari_ini = "Minggu";
+                    break;
 
-            case 'Mon':
-                $hari_ini = "Senin";
-                break;
+                case 'Mon':
+                    $hari_ini = "Senin";
+                    break;
 
-            case 'Tue':
-                $hari_ini = "Selasa";
-                break;
+                case 'Tue':
+                    $hari_ini = "Selasa";
+                    break;
 
-            case 'Wed':
-                $hari_ini = "Rabu";
-                break;
+                case 'Wed':
+                    $hari_ini = "Rabu";
+                    break;
 
-            case 'Thu':
-                $hari_ini = "Kamis";
-                break;
+                case 'Thu':
+                    $hari_ini = "Kamis";
+                    break;
 
-            case 'Fri':
-                $hari_ini = "Jumat";
-                break;
+                case 'Fri':
+                    $hari_ini = "Jumat";
+                    break;
 
-            case 'Sat':
-                $hari_ini = "Sabtu";
-                break;
+                case 'Sat':
+                    $hari_ini = "Sabtu";
+                    break;
 
-            default:
-                $hari_ini = "Tidak di ketahui";
-                break;
-        }
-        
-        // template isi pesan
+                default:
+                    $hari_ini = "Tidak di ketahui";
+                    break;
+            }
+
+            // template isi pesan
             if ($krm->STATUS != 'Terkirim') {
-                        $isi_pesan = $krm->ISI_PESAN .
+                $isi_pesan = $krm->ISI_PESAN .
                     " Bapak " . $krm->NAMA_PENCERAMAH .
                     " Untuk mengikuti " . $krm->JENIS_ACARA .
                     " Acara " . $krm->NAMA_ACARA .
@@ -83,7 +85,7 @@ class Pesan extends CI_Controller
                     "\n" . $krm->TEMA_ACARA .
                     "\nPada Tanggal " . date('d M', $date) . " Hari " . $hari_ini;
 
-                
+
                 // api untuk kirim pesan
 
                 // $userkey = "3e3609800810";

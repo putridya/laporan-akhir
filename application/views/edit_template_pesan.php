@@ -1,6 +1,7 @@
 <div class="content-wrapper">
     <section class="content">
         <?php foreach ($template_pesan as $acr) {
+            echo form_open_multipart('template_pesan/update');
             ?>
             <!-- membuat function update didlm controllers penceramah -->
             <form action="<?php echo base_url() . 'template_pesan/update'; ?>" method="post">
@@ -20,11 +21,11 @@
                     </select>
                 </div>
 
-                <!-- <div class="form-group">
-                                <label>Nama Acara</label>
-                                <input type="hidden" name="ID_ACARA" class="form-control" value="<?php echo $acr->ID_ACARA; ?>">
-                                <input type="text" name="NAMA_ACARA" class="form-control" placeholder="Isikan Nama Acara" required value="<?php echo $acr->NAMA_ACARA; ?>">
-                            </div> -->
+                <div class="form-group">
+                    <label>Nama Acara</label>
+                    <input type="hidden" name="ID_ACARA" class="form-control" value="<?php echo $acr->ID_ACARA; ?>">
+                    <input type="text" name="NAMA_ACARA" class="form-control" placeholder="Isikan Nama Acara" required value="<?php echo $acr->NAMA_ACARA; ?>">
+                </div>
 
                 <div class="form-group">
                     <label>Isi Pesan</label>
@@ -40,7 +41,7 @@
     </section>
 
 </div>
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     function yesnoCheck(that) {
         if (that.value == "Jumatan") {
             //   alert("check");
@@ -49,4 +50,4 @@
             document.getElementById("ifYes").style.display = "none";
         }
     }
-</script> -->
+</script>

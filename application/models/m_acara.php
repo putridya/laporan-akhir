@@ -76,6 +76,18 @@ class M_acara extends CI_Model
         $query = $this->db->get();
         return $query;
     }
+
+    public function status_acara()
+    {
+        $date_now = date('Y-m-d');
+        // $date_after2 = date('Y-m-d', strtotime('+2 days', strtotime($date_now))) . PHP_EOL;
+        $this->db->select('*');
+        $this->db->from('acara');
+        $this->db->where('TGL_ACARA', $date_now); //apakah tanggal acara == hari sekarang + 2
+        $query = $this->db->get();
+        return $query;
+    }
+
     public function input_data($data, $table)
     {
         $this->db->insert($table, $data);

@@ -40,7 +40,8 @@ if ($jenis == 'Kajian') {
       </tr>
       <?php
       $no = 1;
-      foreach ($acara as $acr) : ?>
+      foreach ($acara as $acr) :
+        $date_now = date('d M Y'); ?>
 
         <tr>
           <td><?php echo $no++ ?></td>
@@ -50,7 +51,7 @@ if ($jenis == 'Kajian') {
           <td><?php echo $acr->NAMA_PENCERAMAH ?></td>
           <td><?php echo $acr->STATUS_ACARA ?></td>
           <td onclick="return confirm('Apakah Yakin Anda ingin menghapus?')">
-            <?php echo anchor('acara/hapus/' . $acr->ID_ACARA .'/'. $jenis_acara . '/' . $jenis, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
+            <?php echo anchor('acara/hapus/' . $acr->ID_ACARA . '/' . $jenis_acara . '/' . $jenis, '<div class="btn btn-danger btn-sm"><i class ="fa fa-trash"></i></div>') ?>
           </td>
 
           <td>

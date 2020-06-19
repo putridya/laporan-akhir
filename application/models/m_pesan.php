@@ -15,7 +15,7 @@ class M_pesan extends CI_Model
     }
     public function kirim()
     {
-        // return $this->db->get('BILAL');
+
         $date_now = date('Y-m-d');
         $date_after2 = date('Y-m-d', strtotime('+2 days', strtotime($date_now))) . PHP_EOL;
 
@@ -23,7 +23,7 @@ class M_pesan extends CI_Model
         $this->db->from('acara');
         $this->db->join('template_pesan', 'acara.ID_ACARA = template_pesan.ID_ACARA'); //join untuk menggabungkan tabel
         $this->db->join('penceramah', 'penceramah.ID_PENCERAMAH = acara.ID_PENCERAMAH'); //join untuk menggabungkan tabel
-        $this->db->where('TGL_ACARA', $date_after2);
+        $this->db->where('TGL_ACARA', $date_after2); //apakah tanggal acara == hari sekarang + 2
         // $this->db->join('admin', 'admin.ID_ADMIN = acara.ID_ADMIN'); //join untuk menggabungkan tabel
         $query = $this->db->get();
         return $query;

@@ -16,16 +16,21 @@ class Acara extends CI_Controller
     {
         $data['title'] = 'Penceramah';
         $data['acara'] = $this->m_acara->tampil_data()->result(); // m_acara : nama model acara, tampil_data = u/mengambil data
-
         $data['penceramah'] = $this->m_penceramah->tampil_data()->result();
 
         $data['bilal'] = $this->m_bilal->tampil_data()->result();
+
+
 
         $this->load->view('template/header', $data); //u/ngeload view dari folder template
         $this->load->view('template/sidebar');
         $this->load->view('acara', $data);
         $this->load->view('template/footer');
     }
+
+
+
+
     public function kajian($kajian)
     {
         $data['title'] = 'Penceramah';
@@ -34,6 +39,7 @@ class Acara extends CI_Controller
         $data['penceramah'] = $this->m_penceramah->tampil_data()->result();
 
         $data['bilal'] = $this->m_bilal->tampil_data()->result();
+
 
         $this->load->view('template/header', $data); //u/ngeload view dari folder template
         $this->load->view('template/sidebar');
@@ -68,7 +74,20 @@ class Acara extends CI_Controller
         $this->load->view('acara', $data);
         $this->load->view('template/footer');
     }
+    public function status_acara()
+    {
+        $data['status_acara'] = $this->m_acara->status_acara()->result(); //nyeleksi semua data
+        foreach ($data['status_acara'] as $acr) {
+            $where = array(
+                'ID_ACARA' =>  $acr->ID_ACARA
 
+            );
+            $data1 = array(
+                'STATUS_ACARA' =>  "Sudah Terlaksana"
+            );
+            $this->m_acara->update_data($where, $data1, 'acara');
+        }
+    }
     public function tambah_aksi($method, $param)
     {
         $ID_PENCERAMAH = $this->input->post('ID_PENCERAMAH');
@@ -94,7 +113,7 @@ class Acara extends CI_Controller
         // redirect('acara/index');
         redirect('acara/' . $method . '/' . $param . '?jenis=' . $param);
     }
-    public function hapus($ID_ACARA,$method,$param)
+    public function hapus($ID_ACARA, $method, $param)
     {
         $where = array('ID_ACARA' => $ID_ACARA);
 

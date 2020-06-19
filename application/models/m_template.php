@@ -6,8 +6,8 @@ class M_template extends CI_Model
         // return $this->db->get('BILAL');
 
         $this->db->select('*'); //untuk menampilkan semua data kedua tabel
-        $this->db->from('acara');
-        $this->db->join('template_pesan', 'acara.ID_ACARA = template_pesan.ID_ACARA'); //join untuk menggabungkan tabel
+        $this->db->from('template_pesan');
+        $this->db->join('acara', 'acara.ID_ACARA = template_pesan.ID_ACARA'); //join untuk menggabungkan tabel
         // $this->db->join('admin', 'admin.ID_ADMIN = acara.ID_ADMIN'); //join untuk menggabungkan tabel
         $query = $this->db->get();
         return $query;
@@ -68,7 +68,16 @@ class M_template extends CI_Model
     }
     public function edit_data($where, $table)
     {
-        return $this->db->get_where($table, $where);
+        $this->db->select('*'); //untuk menampilkan semua data kedua tabel
+        $this->db->from($table);
+        $this->db->join('acara', 'acara.ID_ACARA = template_pesan.ID_ACARA'); //join untuk menggabungkan tabel
+        // $this->db->join('admin', 'admin.ID_ADMIN = acara.ID_ADMIN'); //join untuk menggabungkan tabel
+        //$this->db->join('bilal', 'bilal.ID_BILAL = acara.ID_BILAL'); //join untuk menggabungkan tabel
+        $this->db->where('ID_TEMPLATE', $where);
+        // $this->db->join('template_pesan', 'template_pesan.ID_TEMPLATE = acara.ID_TEMPLATE'); //join untuk menggabungkan tabel
+        $query = $this->db->get();
+        return $query;
+        // return $this->db->get_where($table, $where);
     }
     public function update_data($where, $data, $table)
     {
